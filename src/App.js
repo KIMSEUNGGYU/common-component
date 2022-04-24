@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import Toggle from './components/toggle';
+import Tab from './components/tab';
 
 function App() {
   return (
@@ -9,6 +10,10 @@ function App() {
       <ComponentWrapper>
         <h3>1. toggle</h3>
         <Toggle />
+      </ComponentWrapper>
+      <ComponentWrapper>
+        <h3>2. toggle</h3>
+        <Tab />
       </ComponentWrapper>
     </div>
   );
