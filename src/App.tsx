@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import Toggle from './components/Toggle';
 import Tab from './components/Tab';
+import Slider from './components/Slider';
 
 function App() {
   return (
@@ -17,8 +18,12 @@ function App() {
         />
       </ComponentWrapper>
       <ComponentWrapper>
-        <h3>2. toggle</h3>
+        <h3>2. tab</h3>
         <Tab data={['감자', '고구마', '카레라이스']} width={'70%'} />
+      </ComponentWrapper>
+      <ComponentWrapper>
+        <h3>3. slider</h3>
+        <Slider />
       </ComponentWrapper>
     </Wrapper>
   );
@@ -30,7 +35,7 @@ const Wrapper = styled.div(() => ({
 
 const ComponentWrapper = styled.div(() => ({
   marign: '0 auto',
-  height: '8rem',
+  height: '15rem',
   borderBottom: '1px solid #ebebeb',
 }));
 
