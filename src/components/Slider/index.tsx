@@ -1,103 +1,59 @@
-import styled from '@emotion/styled';
 import { ChangeEvent, useState } from 'react';
 
-// TODO-GYU: 공통 컴포넌트 요소
-// initialValue, labelItems
-// 요소 스타일 초기 적용하기
+import * as S from './styles';
 
-// UI 업데이트 (0%, 25% ... 동그라미)
+// TODO-GYU: UI 업데이트 (0%, 25% ... 동그라미)
 
-const initialValue = '50';
-const items = ['1', '25', '50', '75', '100'];
-// const items = ['1', '5', '10', '75', '100'];
+export type SliderProps = {
+  /** 슬라이더의 초기 값 */
+  initialValue: string;
+  /** 슬라이더의 전체 너비 */
+  width?: string;
+  /** 슬라이더 메인 컬러 */
+  color?: string;
+  /** 슬라이더의 라벨 아이템 */
+  items?: string[];
+};
 
-export default function Slider() {
+export default function Slider({
+  initialValue,
+  width = '100%',
+  color = '#39bcbc',
+  items = [],
+}: SliderProps) {
   const [sliderValue, setSliderValue] = useState(initialValue);
 
   const hanldeChangeSliderValue = ({ target }: ChangeEvent<HTMLInputElement>) =>
     setSliderValue(target.value);
 
   return (
-    <Wrapper>
+    <S.Wrapper width={width}>
       <h3>{sliderValue}%</h3>
-      <SliderWrapper>
-        <SSlider
+      <S.SliderWrapper>
+        <S.Slider
           type="range"
-          name=""
-          id=""
           value={sliderValue}
+          color={color}
           onChange={hanldeChangeSliderValue}
         />
-        <Labels>
-          {items.map((item) => (
-            <>
-              <Label value={item} onClick={() => setSliderValue(item)}>
-                {item}%
-              </Label>
-            </>
-          ))}
-        </Labels>
-      </SliderWrapper>
-    </Wrapper>
+        {Array.isArray(items) && (
+          <S.Labels>
+            {items?.map((item) => (
+              <>
+                <S.Label value={item} color={color} onClick={() => setSliderValue(item)}>
+                  {item}%
+                </S.Label>
+              </>
+            ))}
+          </S.Labels>
+        )}
+      </S.SliderWrapper>
+    </S.Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  padding: 1rem 3rem;
-`;
-
-const SliderWrapper = styled.div`
-  position: relative;
-`;
-
-const SSlider = styled.input(({ value }) => ({
-  WebkitAppearance: 'none',
-  position: 'relative',
+Slider.defaultProps = {
   width: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.1)',
-
-  '&::-webkit-slider-runnable-track': {
-    WebkitAppearance: 'none',
-    height: '5px',
-    background: `linear-gradient(to right, #39bcbc 0%, #39bcbc ${value}%, rgba(0, 0, 0, 0.1) 0)`,
-  },
-
-  '&::-webkit-slider-thumb': {
-    WebkitAppearance: 'none',
-    background: 'transparent',
-    width: '1.5rem',
-    height: '1.5rem',
-    border: '3px solid white',
-    borderRadius: '50%',
-    backgroundColor: '#39bcbc',
-    position: 'absolute',
-    top: '-8px',
-    left: `calc(${value}%)`,
-    cursor: 'pointer',
-  },
-}));
-
-const Labels = styled.ul`
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-`;
-
-const Label = styled.button(({ value }) => ({
-  outline: 'none',
-  border: 'none',
-  backgroundColor: 'rgba(0, 0, 0, 0.15)',
-  color: 'rgba(0, 0, 0, 0.25)',
-  fontWeight: 600,
-  padding: '0.3rem 0.7rem',
-  borderRadius: '10px',
-  position: 'absolute',
-  left: `calc(${value}% - 20px)`,
-  '&:hover': {
-    backgroundColor: '#39bcbc',
-    color: 'white',
-  },
-}));
+  color: '#39bcbc',
+  items: [],
+};

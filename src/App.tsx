@@ -23,7 +23,7 @@ function App() {
       </ComponentWrapper>
       <ComponentWrapper>
         <h3>3. slider</h3>
-        <Slider />
+        <Slider initialValue="50" items={['1', '25', '50', '75', '100']} />
       </ComponentWrapper>
     </Wrapper>
   );
